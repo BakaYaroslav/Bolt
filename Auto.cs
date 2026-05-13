@@ -5,34 +5,46 @@ using System.Text;
 
 namespace Bolt
 {
+    // Auto klass rakendab ISõiduk liidest
     public class Auto : ISõiduk
     {
+        // Kütusekulu liitrites 100 km kohta
         public double Kütusekulu { get; set; }
-        internal const double _kütusehind = 1.67;
+
+        // Kütuse hind eurodes liitri kohta
+        public double Kütusehind { get; set; }
+
+        // Läbitav vahemaa kilomeetrites
         public double Vahemaa { get; set; }
+
+        // Kütusepaagi maht liitrites
         public double Tank { get; set; }
 
-        public Auto(double kütusekulu,double tank)
+        // Konstruktor võtab kütusekulu, kütusehinna ja paagi mahu
+        public Auto(double kütusekulu, double kütusehind, double tank)
         {
             Kütusekulu = kütusekulu;
+            Kütusehind = kütusehind;
             Tank = tank;
         }
 
+        // Arvutab kogu kütusekulu eurodes (täis paak * kütusehind)
         public double ArvutaKulu()
         {
-            return Tank * _kütusehind;
+            return Tank * Kütusehind;
         }
-        
+
+        // Arvutab kui kaugele saab täis tankiga sõita
         public double ArvutaVahemaa()
         {
             double vahemaa = Tank / Kütusekulu * 100;
             return vahemaa;
         }
 
+        // Tagastab auto info tekstina
         public override string ToString()
         {
-            return $"auto - Vahemaa: {ArvutaVahemaa()} km, Kulu: {ArvutaKulu()}€";
+            return $"Auto - Vahemaa: {Math.Round(ArvutaVahemaa(), 1)} km, Kulu: {Math.Round(ArvutaKulu(), 2)}€";
         }
-
     }
 }
